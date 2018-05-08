@@ -5,7 +5,7 @@ const path = require("path");
 let config;
 
 try {
-  config = require("./rfconfig");
+  config = require(path.resolve("./rfconfig"));
 } catch (e) {
   config = {
     "defaultBrowsers": ["chrome"],
@@ -173,10 +173,16 @@ function makeTest(id, func) {
 
   // infer the site_id based on what tags the test has.
   if (!currentTest.siteId && config.sites) {
-    for (var site in config.sites) {
-      if (currentTest.tags.includes(site)) {
-        currentTest.siteId = config.sites[site].site_id;
-        break;
+    // if there's one site, assume that's it.
+    if (Object.keys(config.sites).length == 1) {
+      var site = Object.keys(config.sites)[0];
+      currentTest.siteId = config.sites[site].site_id;
+    } else {
+      for (var site in config.sites) {
+        if (currentTest.tags.includes(site)) {
+          currentTest.siteId = config.sites[site].site_id;
+          break;
+        }
       }
     }
   }

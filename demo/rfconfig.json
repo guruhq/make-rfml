@@ -1,0 +1,8 @@
+{
+  "sites": {
+    "app": {
+      "site_id": 1234
+    }
+  },
+  "defaultBrowsers": ["chrome"]
+}
