@@ -10,11 +10,10 @@ function printHelpMessage() {
   console.log("");
   console.log("COMMANDS:");
   console.log("");
-  console.log("build <file>   generates RFML files for the input .js file.");
-  console.log("               if you omit <file> it builds all tests.");
+  console.log("make-rfml build <.js file>   generates RFML files for the input .js file.");
   console.log("");
-  console.log("new            prints sample code for a new test that includes");
-  console.log("               the test's UUID.");
+  console.log("make-rfml new                prints sample code for a new test that includes");
+  console.log("                             the test's UUID.");
   console.log("");
 }
 

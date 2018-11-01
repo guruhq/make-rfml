@@ -308,7 +308,8 @@ function hasTag(tag) {
   return currentTest.tags.includes(tag);
 }
 
-function saveTests(dir="output") {
+function saveTests() {
+  var dir = config.outputFolder || "output";
   tests.forEach(function(test) {
     var filename = path.join(dir, test.id + ".rfml");
 
