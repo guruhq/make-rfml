@@ -246,7 +246,15 @@ function step(text) {
 
   var instruction = lines.slice(0, questionIndex).join(" ");
   var question = lines.slice(questionIndex).join(" ");
-  currentTest.steps.push({instruction, question});
+
+  // if the current step doesn't have a question, append to that.
+  var currentStep = currentTest.steps[currentTest.steps.length - 1];
+  if (currentStep && !currentStep.question) {
+    currentStep.instruction += " " + instruction;
+    currentStep.question = question;
+  } else {
+    currentTest.steps.push({instruction, question});
+  }
 }
 
 /**
