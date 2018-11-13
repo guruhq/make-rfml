@@ -200,20 +200,24 @@ function makeTest(id, func) {
     func();
     
     // check/normalize all the steps.
-    currentTest.steps.forEach(step => {
+    currentTest.steps.forEach((step, index) => {
       // insert a space when questions end with quoted terms.
       // Do you see "DELETE"?  =>  Do you see "DELETE" ?
       step.question = formatStep(step.question).replace(/"\?$/, "\" ?");
       step.instruction = formatStep(step.instruction);
 
       if (!/\?$/.test(step.question)) {
-        throw currentTest.id + ": question does not end with a question mark: " + step.question;
+        throw `${currentTest.id}: step ${index + 1}: question does not end with a question mark:
+
+  ${step.instruction}
+  ${step.question}
+`;
       }
     });
 
     tests.push(currentTest);
   } catch (err) {
-    console.error(currentTest.id + ": " + err);
+    console.log(err);
     successfulBuild = false;
   }
 
@@ -247,14 +251,8 @@ function step(text) {
   var instruction = lines.slice(0, questionIndex).join(" ");
   var question = lines.slice(questionIndex).join(" ");
 
-  // if the current step doesn't have a question, append to that.
-  var currentStep = currentTest.steps[currentTest.steps.length - 1];
-  if (currentStep && !currentStep.question) {
-    currentStep.instruction += " " + instruction;
-    currentStep.question = question;
-  } else {
-    currentTest.steps.push({instruction, question});
-  }
+  step.instruction(instruction);
+  step.question(question);
 }
 
 /**
