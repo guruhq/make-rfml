@@ -292,10 +292,10 @@ step.question = function(question) {
   } else if (!last.instruction) {
     throw "can't add a question until the step has an instruction.";
   } else if (last.question) {
-    throw "the last step already has a question.";
+    last.question += " " + question;
+  } else {
+    last.question += question.replace(Q_COLON, "");
   }
-
-  last.question += question.replace(Q_COLON, "");
 };
 
 function hasBrowser(browser) {
