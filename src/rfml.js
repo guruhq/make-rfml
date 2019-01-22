@@ -241,10 +241,10 @@ function step(text) {
   var questionIndex = lines.findIndex(line => Q_COLON.test(line));
   questionIndex = (questionIndex >= 0) ? questionIndex : lines.length - 1;
   
+  // remove "Q:" from each line that starts with it.
   for (var i = 0; i < lines.length; i++) {
     if (Q_COLON.test(lines[i])) {
       lines[i] = lines[i].replace(Q_COLON, "");
-      questionIndex = i;
     }
   }
 
