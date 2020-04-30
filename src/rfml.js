@@ -73,6 +73,7 @@ function resolveBrowsers(browsers) {
 function fixFiles(text) {
   return text.replace(/{{([^}]+)}}/gi, function(text, filename) {
     if (!filename.includes("/")) { return text; }
+    if (filename.includes("file.")) { return text; }
     if (/(png|gif|jpg|jpeg)$/i.test(filename)) {
       return "{{file.screenshot(../" + filename + ")}}";
     } else {
